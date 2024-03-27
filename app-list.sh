@@ -16,7 +16,7 @@ while read line;
 do 
 appid=$(echo $line | cut -d ':' -f1)
 apptitle=$(echo $line | cut -d ':' -f2-| sed '1s/.//' )
-echo "<item label="\"" &#8226; $appid $apptitle"\"">"
+echo "<item label="\""&#8226; $appid $apptitle"\"">"
 echo "<action name="\""Execute"\""><execute>"
 echo "wlrctl window focus app_id:$appid state:minimized `title:'$apptitle'`"
 echo "</execute></action></item>"

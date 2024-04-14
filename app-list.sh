@@ -1,4 +1,13 @@
-# I'm sure there are better ways of doing this, but here we are
+#  I'm sure there are better ways of doing this, but here we are
+#
+#  Menu to show open windows in Labwc pipe menu using wlrctl
+#
+#  https://git.sr.ht/~brocellous/wlrctl
+#
+#  some documentation for wlrctl is here: https://manpages.ubuntu.com/manpages/noble/man1/wlrctl.1.html
+#
+#  <menu id="app-list" label="Windows" execute="[path]app-list.sh"/>
+#
 
 echo '<openbox_pipe_menu id="window-list">'
 

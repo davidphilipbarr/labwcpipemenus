@@ -1,0 +1,2 @@
+grim -g "$(slurp)"
+

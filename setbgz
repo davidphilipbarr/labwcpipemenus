@@ -1,0 +1,4 @@
+##$(zenity --file-selection)
+FILE=`zenity --file-selection --title="Select a File"`
+cp "$FILE" ~/.local/share/backgrounds/swaybg-set.jpg
+swaybg  --mode center --image ~/.local/share/backgrounds/swaybg-set.jpg

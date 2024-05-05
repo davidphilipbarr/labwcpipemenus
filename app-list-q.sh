@@ -3,6 +3,8 @@
 # and wlctrl https://todo.sr.ht/~brocellous/wlrctl/7 usuing jq to parse the json output.
 # it's incredibly hacky but for the most part seems to work. 
 # [-] signifies minimised window [+] shoes the current active window
+
+
 exclude=("re.sonny.Retro")
 wlist=$(lswt -j)
 fm="org.gnome.Nautilus"

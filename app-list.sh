@@ -19,7 +19,7 @@ do
 
 appid=$(echo $line | cut -d ':' -f1)
 appidt=$(echo $line | cut -d ':' -f1 |sed 's/org.gnome.//g')
-apptitle=$(echo $line | cut -d ':' -f2-| sed '1s/.//' | sed 's/\&/\&amp;/g'   )
+apptitle=$(echo $line | cut -d ':' -f2-| sed '1s/.//' | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 
 echo "<item label="\""$appidt - $apptitle"\"">"
 echo "<action name="\""Execute"\""><execute>"

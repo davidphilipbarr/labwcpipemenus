@@ -1,15 +1,15 @@
 # labwcpipemenus
 
 
-## What is all this shit?
+## What is all this?
 
 
-So hear me out, I don't want to use a panel or dock or anything, I just want to go back, way back to the old days, but I do *need* access to a list of windows i have open somehow....
+So hear me out, I don't want to use a panel or dock or anything, I just want to go back, way back to the old days, but I do *need* access to a list of windows I have open somehow....
 
 
 ### Sounds reasonable, but why so many that do the same thing?
 
-I'm just trying to figure it out, some tools are more experimental (like lswt) and less easily available to install.
+I'm just trying to figure it out, some tools are more experimental (like lswt) and less easily available.
 
 ### Whatever, which 'app-list' do I use and why?
 
@@ -19,7 +19,7 @@ I'm just trying to figure it out, some tools are more experimental (like lswt) a
 
 
 
-[app-list.sh](app-list.sh) - this only uses wlrctrl, which is widely available in most distributions, it also splits the window lists into minimised and viewable rather than in one list mixed up, but only shows if a window is minimised or not. It has the least obscure app 'dependencies' so should work on most systems without having to build anything.   
+[app-list.sh](app-list.sh) - this only uses wlrctrl, which is widely available in most distributions, it also splits the window lists into minimised and viewable rather than in one list mixed up, but only shows if a window is minimised or not. It supports manually excluding apps from the list too. It has the least obscure app 'dependencies' so should work on most systems without having to build anything.   
 
 #### The others
 app-list-cut.sh - this uses lswt and wlrctrl and uses cut (doesn't require jq and will only work at the moment with GIT lswt) - supports minimised and active window identification as well as the ability to manually exclude certain windows from the list.

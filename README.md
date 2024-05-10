@@ -14,6 +14,11 @@ I'm just trying to figure it out, some tools are more experimental (like lswt) a
 ### Whatever, which 'app-list' do I use and why?
 
 #### Pobably this one:
+
+![image](app-list.png)
+
+
+
 [app-list.sh](app-list.sh) - this only uses wlrctrl, which is widely available in most distributions, it also splits the window lists into minimised and viewable rather than in one list mixed up, but only shows if a window is minimised or not. It has the least obscure app 'dependencies' so should work on most systems without having to build anything.   
 
 #### The others

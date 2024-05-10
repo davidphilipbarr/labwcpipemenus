@@ -2,8 +2,8 @@
 # Alternative Client-list menu based on lswt https://sr.ht/~leon_plickat/lswt/ 
 # and wlctrl https://todo.sr.ht/~brocellous/wlrctl/7 usuing jq to parse the json output.
 # it's incredibly hacky but for the most part seems to work. 
-# [-] signifies minimised window [+] shoes the current active window
-#Active,title,app-id,fullscreen,min,max
+# [-] signifies minimised window [+] shows the current active window
+# Active,title,app-id,fullscreen,min,max
 # -c AtafmM
 
 exclude=("re.sonny.Retro")

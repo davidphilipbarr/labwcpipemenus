@@ -1,3 +1,4 @@
+#!/bin/bash
 #  I'm sure there are better ways of doing this, but here we are
 #
 #  Menu to show open windows in Labwc pipe menu using wlrctl
@@ -9,61 +10,71 @@
 #  <menu id="app-list" label="Windows" execute="[path]app-list.sh"/>
 #
 
+exclude=("re.sonny.Retro")
+fm="org.gnome.Nautilus"
+appnames()
+{
+appid=$(echo $line | cut -d ':' -f1)
+appidt=$(echo $line | cut -d ':' -f1 | sed 's/org.gnome.//g')
+apptitle=$(echo $line | cut -d ':' -f2-| sed '1s/.//' | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
+}
+#begin the menu!  
 echo '<openbox_pipe_menu id="window-list">'
 
-wla=$(wlrctl toplevel list state:-minimized)
-wli=$(wlrctl toplevel list state:minimized)
-wlrctl toplevel list state:-minimized  |
+#list windows that are 'on the desktop'
+wlrctl toplevel list state:-minimized |
 while read line; 
 do 
-
-appid=$(echo $line | cut -d ':' -f1)
-appidt=$(echo $line | cut -d ':' -f1 |sed 's/org.gnome.//g')
-apptitle=$(echo $line | cut -d ':' -f2-| sed '1s/.//' | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
-
+appnames
+if  [[ !  ${exclude[@]} =~ $appid ]]
+then 
 echo "<item label="\""$appidt - $apptitle"\"">"
 echo "<action name="\""Execute"\""><execute>"
-echo "wlrctl window focus app_id:$appid `title:'$apptitle'` "
-echo "</execute></action></item>"
 
-done
-if [ -z "$wla" ];
-then 
-echo "<item label='No open windows'></item>"
+#test if it's nautilus or whatever
+if [ "$appid" = "$fm" ]
+     then
+echo "wlrctl window focus app_id:$appid title:'$apptitle'"
+     else
+echo "wlrctl window focus app_id:$appid `title:'$apptitle'`"
 fi
+
+echo "</execute></action></item>"
+fi
+done
+
 echo "<separator/>"
 
+#list minimised windows
 wlrctl toplevel list state:minimized  |
 while read line; 
 do 
-appid=$(echo $line | cut -d ':' -f1)
-appidt=$(echo $line | cut -d ':' -f1 |sed 's/org.gnome.//g')
-apptitle=$(echo $line | cut -d ':' -f2-| sed '1s/.//' )
-echo "<item label="\""* $appidt - $apptitle"\"">"
+appnames
+echo "<item label="\""[-] $appidt - $apptitle"\"">"
 echo "<action name="\""Execute"\""><execute>"
+
+#test if it's nautilus or whatever
+if [ "$appid" = "$fm" ]
+     then
+echo "wlrctl window focus app_id:$appid state:minimized title:'$apptitle'"
+     else
 echo "wlrctl window focus app_id:$appid state:minimized `title:'$apptitle'`"
-echo "</execute></action></item>"
-done
-if  [ ! -z "$wli" ];
-then 
-echo "<separator/>"
 fi
 
+echo "</execute></action></item>"
+done
 
-echo "<item label='Move Workspace Right'>"
+# add a load of bumf at the end 
+printf '%b\n' '
+<separator/>
+<item label="Move Workspace Right">
+<item label="Move Workspace Left">" 
+<action name="GoToDesktop" to="left" wrap="yes" />
+</item>
+<action name="GoToDesktop" to="right" wrap="yes" />
+</item>
+<item label="Clear Workspace">
+<action name="Execute"><execute>wlrctl window minimize
+</execute></action></item>
 
-  echo "<item label='Move Workspace Left'>" 
-      echo '<action name="GoToDesktop" to="left" wrap="yes" />'
- echo "</item>"
-
- echo '<action name="GoToDesktop" to="right" wrap="yes" />'
- 
- echo "</item>"
- 
-
-
-
-
-
-
-echo '</openbox_pipe_menu>'
+</openbox_pipe_menu>'

@@ -26,9 +26,9 @@ echo "<item label="\""$appidt - $apptitle"\"">"
 echo "<action name="\""Execute"\""><execute>"
 if [ "$appid" = "$fm" ]
      then
-echo "wlrctl window focus app_id:$appid title:'$apptitle'"
+echo "wlrctl window focus app_id:$appid $state title:'$apptitle'"
      else
-echo "wlrctl window focus app_id:$appid `title:'$apptitle'`"
+echo "wlrctl window focus app_id:$appid $state `title:'$apptitle'`"
 fi
 echo "</execute></action></item>"
 fi
@@ -45,6 +45,7 @@ done
 }
 min()
 {
+state="state:minimized"
 #list windows that are mimimised
 wlrctl toplevel list state:minimized  |
 while read line; 

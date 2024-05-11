@@ -18,52 +18,46 @@ appid=$(echo $line | cut -d ':' -f1)
 appidt=$(echo $line | cut -d ':' -f1 | sed 's/org.gnome.//g')
 apptitle=$(echo $line | cut -d ':' -f2-| sed '1s/.//' | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 }
-#begin the menu!  
-echo '<openbox_pipe_menu id="window-list">'
-
-#list windows that are 'on the desktop'
-wlrctl toplevel list state:-minimized |
-while read line; 
-do 
-appnames
+app()
+{
 if  [[ !  ${exclude[@]} =~ $appid ]]
 then 
 echo "<item label="\""$appidt - $apptitle"\"">"
 echo "<action name="\""Execute"\""><execute>"
-
-#test if it's nautilus or whatever
 if [ "$appid" = "$fm" ]
      then
 echo "wlrctl window focus app_id:$appid title:'$apptitle'"
      else
 echo "wlrctl window focus app_id:$appid `title:'$apptitle'`"
 fi
-
 echo "</execute></action></item>"
 fi
+}
+vis()
+{
+#list windows that are 'on the desktop'
+wlrctl toplevel list state:-minimized |
+while read line; 
+do 
+appnames
+app
 done
-
-echo "<separator/>"
-
-#list minimised windows
+}
+min()
+{
+#list windows that are mimimised
 wlrctl toplevel list state:minimized  |
 while read line; 
 do 
 appnames
-echo "<item label="\""[-] $appidt - $apptitle"\"">"
-echo "<action name="\""Execute"\""><execute>"
-
-#test if it's nautilus or whatever
-if [ "$appid" = "$fm" ]
-     then
-echo "wlrctl window focus app_id:$appid state:minimized title:'$apptitle'"
-     else
-echo "wlrctl window focus app_id:$appid state:minimized `title:'$apptitle'`"
-fi
-
-echo "</execute></action></item>"
+app
 done
-
+}
+#begin the menu!  
+echo '<openbox_pipe_menu id="window-list">'
+vis
+echo "<separator/>"
+min
 # add a load of bumf at the end 
 printf '%b\n' '
 <separator/>
@@ -73,8 +67,9 @@ printf '%b\n' '
 </item>
 <action name="GoToDesktop" to="right" wrap="yes" />
 </item>
+<!--
 <item label="Clear Workspace">
 <action name="Execute"><execute>wlrctl window minimize
 </execute></action></item>
-
+-->
 </openbox_pipe_menu>'

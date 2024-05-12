@@ -24,6 +24,10 @@ I'm just trying to figure it out, some tools are more experimental (like lswt) a
 #### The others
 app-list-cut.sh - this uses lswt and wlrctrl and uses cut (doesn't require jq and will only work at the moment with GIT lswt) - supports minimised and active window identification as well as the ability to manually exclude certain windows from the list.
 
+![image](app-list-cut.png)
+
+All the lswt menus look like this, [-] signifies minimised and [+] means active/has focus.
+
 app-list-lswt-json.sh - this uses lswt and wlrctrl and jq for parsing the output from lswt (will work better with older versions of lswt)  - supports minimised and active window identification.
 
 app-list-q.sh - slight variation on the above. 

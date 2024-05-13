@@ -15,8 +15,8 @@ echo '<openbox_pipe_menu id="window-list">'
 IFS=$'\n' 
 for LINE in $wlist
 do
-apptitle=$(echo "$LINE" | cut -d"," -f2)
-appid=$(echo "$LINE" | cut -d"," -f3)
+apptitle=$(echo "$LINE" | cut -d"," -f2 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
+appid=$(echo "$LINE" | cut -d"," -f3 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 minimized=$(echo "$LINE" | cut -d"," -f5)
 active=$(echo "$LINE" | cut -d"," -f1)
 

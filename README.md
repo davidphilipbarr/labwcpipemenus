@@ -11,6 +11,10 @@ So hear me out, I don't want to use a panel or dock or anything, I just want to 
 
 I'm just trying to figure it out, some tools are more experimental (like lswt) and less easily available.
 
+### What's the catch?
+
+If there are multiple windows with the same name and id (possibly terminals, maybe file managers) there can be an element of chance as to if it raises the right one, this is reasonably well minimised by querying the state as well as the id and title, lswt has an unique identifier option which might prove useful in the future...   
+
 ### Whatever, which 'app-list' do I use and why?
 
 #### Pobably this one:

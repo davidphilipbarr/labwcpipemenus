@@ -13,7 +13,7 @@ I'm just trying to figure it out, some tools are more experimental (like lswt) a
 
 ### What's the catch?
 
-If there are multiple windows with the same name and id (possibly terminals, maybe file managers) there can be an element of chance as to if it raises the right one, this is reasonably well minimised by querying the state as well as the id and title, lswt has an unique identifier option which might prove useful in the future...   
+If there are multiple windows with the same name and id (possibly terminals, maybe file managers) there can be an element of chance as to if it raises the right one, this is reasonably well minimised by querying the state as well as the id and title, lswt has an unique identifier option which might prove useful in the future... This is ever so slightly less likely to happen using app-list-q.sh.
 
 ### Whatever, which 'app-list' do I use and why?
 

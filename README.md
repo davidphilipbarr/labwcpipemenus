@@ -22,7 +22,7 @@ I'm just trying to figure it out, some tools are more experimental (like lswt) a
 [app-list.sh](app-list.sh) - this only uses wlrctrl, which is widely available in most distributions, it also splits the window lists into minimised and viewable rather than in one list mixed up, but only shows if a window is minimised or not. It supports manually excluding apps from the list too. It has the least obscure app 'dependencies' so should work on most systems without having to build anything.   
 
 #### The others
-app-list-q.sh - this uses lswt and wlrctrl and jq for parsing the output from lswt (will work better with older versions of lswt)  - supports minimised and active window identification.
+app-list-q.sh - this uses lswt and wlrctrl and jq for parsing the output from lswt (will work better with all versions of lswt)  - supports minimised and active window identification.
 
 
 ![image](app-list-cut.png)

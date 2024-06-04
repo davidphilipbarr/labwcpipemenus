@@ -5,33 +5,36 @@
 # [-] signifies minimised window [+] shoes the current active window
 # Active,title,app-id,fullscreen,max,min
 # lswt -c AtafmM
+# known issues - there are problems, usually websites that have commas in their title, such as:https://www.theguardian.com/uk . 
 
 exclude=("re.sonny.Retro")
-wlist=$(lswt -c AtafmM)
-fm="org.gnome.Nautilus"
+wlist=$(lswt -c AtafmM | sed 's.\\,.※.g')
+tm="org.gnome.Console"
 echo '<openbox_pipe_menu id="window-list">'
 
 # set the Internal Field Separator to newline
 IFS=$'\n' 
 for LINE in $wlist
 do
-apptitle=$(echo "$LINE" | cut -d"," -f2 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
+apptitle=$(echo "$LINE" | cut -d"," -f2 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g; s.※.,.g'  )
 appid=$(echo "$LINE" | cut -d"," -f3 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 minimized=$(echo "$LINE" | cut -d"," -f5)
 active=$(echo "$LINE" | cut -d"," -f1)
-
+max=$(echo "$LINE" | cut -d"," -f6)
 if [ "$minimized" = "true" ]
   then
         VIS="[-]"
 	STATE="state:minimized"
   elif [ "$active" = "true" ] 
   then
-	VIS="[+]"
-	   
+	VIS="👁"
+	    elif [ "$max" = "true" ] 
+  then
+	VIS="🗖"
 # if this isn't here it freaks out, but why?  
   else 
 	VIS=""
-	STATE=""
+   STATE="state:-active"
    fi
    
 if  [[ !  ${exclude[@]} =~ $appid ]]
@@ -42,11 +45,11 @@ then
 # for no reason i can fathom nautilus specifically needs the no backtick method, 
 # so we hack rather than figure out why?
      
-     if [ "$appid" = "$fm" ]
+     if [[ "$appid" =~ "$tm" ]]
       then
-         echo "wlrctl window focus app_id:$appid "$STATE" title:'$apptitle' "
+         echo "wlrctl window focus app_id:$appid "$STATE" `title:"\""$apptitle"\""` "
       else
-          echo "wlrctl window focus app_id:$appid "$STATE" `title:'$apptitle'` "
+          echo "wlrctl window focus app_id:$appid "$STATE" title:"\""$apptitle"\"" "
 	     
    fi
    echo "</execute></action></item>"
@@ -61,9 +64,9 @@ echo "</item>"
 echo "<item label='Move Workspace Right'>"
 echo '<action name="GoToDesktop" to="right" wrap="yes" />'
 echo "</item>"
-echo "<separator />"
-echo "<item label='Clear Workspace'>"
-echo "<action name="\""Execute"\""><execute>" 
-echo "wlrctl window minimize"
-echo "</execute></action></item>"
+#echo "<separator />"
+#echo "<item label='Clear Workspace'>"
+#echo "<action name="\""Execute"\""><execute>" 
+#echo "wlrctl window minimize"
+#echo "</execute></action></item>"
 echo '</openbox_pipe_menu>'

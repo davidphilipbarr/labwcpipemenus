@@ -33,6 +33,7 @@ if [ "$appid" = "$fm" ]
      then
 echo "wlrctl window focus app_id:$appid $state title:'$apptitle'"
      else
+# tbh i think this just fails and falls back to appid?    
 echo "wlrctl window focus app_id:$appid $state `title:'$apptitle'`"
 fi
 echo "</execute></action></item>"

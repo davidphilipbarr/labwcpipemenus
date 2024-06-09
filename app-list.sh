@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #  I'm sure there are better ways of doing this, but here we are
 #
 #  Menu to show open windows in Labwc pipe menu using wlrctl
@@ -10,8 +11,9 @@
 #  <menu id="app-list" label="Windows" execute="[path]app-list.sh"/>
 #
 
-exclude=("re.sonny.Retro")
-fm="org.gnome.Nautilus"
+exclude=("re.sonny.Retro Skype")
+tm="org.gnome.Console"
+
 appnames()
 {
 appid=$(echo $line | cut -d ':' -f1)
@@ -29,16 +31,30 @@ echo "<action name="\""Execute"\""><execute>"
 # for no reason i can fathom nautilus specifically needs the no backtick method, 
 # so we hack rather than figure out why?
 
-if [ "$appid" = "$fm" ]
+if [[ "$appid" =~ "$tm" ]]
      then
-echo "wlrctl window focus app_id:$appid $state title:'$apptitle'"
-     else
-# tbh i think this just fails and falls back to appid?    
+   # tbh i think this just fails and falls back to appid?      
 echo "wlrctl window focus app_id:$appid $state `title:'$apptitle'`"
+     else
+  echo "wlrctl window focus app_id:$appid $state title:'$apptitle'"   
+
 fi
 echo "</execute></action></item>"
 fi
 }
+
+act()
+{
+ico="[@]"
+#list windows that are 'on the desktop'
+wlrctl toplevel list state:active |
+while read line; 
+do 
+appnames
+app
+done
+}
+
 vis()
 {
 #list windows that are 'on the desktop'
@@ -62,23 +78,23 @@ app
 done
 }
 
+
+
 #begin the menu!  
 echo '<openbox_pipe_menu id="window-list">'
 vis
-echo "<separator/>"
 min
+
 # add a load of bumf at the end 
 printf '%b\n' '
 <separator/>
 <item label="Move Workspace Right">
-<item label="Move Workspace Left">" 
+<item label="Move Workspace Left"> 
 <action name="GoToDesktop" to="left" wrap="yes" />
 </item>
 <action name="GoToDesktop" to="right" wrap="yes" />
 </item>
-<!--
-<item label="Clear Workspace">
-<action name="Execute"><execute>wlrctl window minimize
-</execute></action></item>
--->
 </openbox_pipe_menu>'
+
+
+

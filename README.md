@@ -40,5 +40,7 @@ There are some other quirks here and there like hiding and showing seperators de
 
 ## So what else is there?
 
-...
+### labwcfav.sh
+
+This dubious script will make a pipemenu from your 'pinned' apps in gnome (the stuff in the dock/dash) - might be useful if you switch between gnome and labwc or something. 
 

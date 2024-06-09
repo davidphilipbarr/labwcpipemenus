@@ -43,18 +43,6 @@ echo "</execute></action></item>"
 fi
 }
 
-act()
-{
-ico="[@]"
-#list windows that are 'on the desktop'
-wlrctl toplevel list state:active |
-while read line; 
-do 
-appnames
-app
-done
-}
-
 vis()
 {
 #list windows that are 'on the desktop'

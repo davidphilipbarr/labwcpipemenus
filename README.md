@@ -17,7 +17,7 @@ If there are multiple windows with the same name and id (possibly terminals, may
 
 ### Whatever, which 'app-list' do I use and why?
 
-#### Pobably this one:
+#### Probably this one:
 
 ![image](app-list.png)
 
@@ -25,7 +25,7 @@ If there are multiple windows with the same name and id (possibly terminals, may
 
 [app-list.sh](app-list.sh) - this only uses wlrctrl, which is widely available in most distributions, it also splits the window lists into minimised and viewable rather than in one list mixed up, but only shows if a window is minimised or not. It supports manually excluding apps from the list too. It has the least obscure app 'dependencies' so should work on most systems without having to build anything.   
 
-#### The others
+#### The other 'app-lists'
 app-list-cut.sh - this uses lswt and wlrctrl and uses cut (doesn't require jq and will only work with lswt 2.*) - supports minimised and active window identification as well as the ability to manually exclude certain windows from the list, faster than the jq version. 
 
 app-list-q.sh - this uses lswt and wlrctrl and jq for parsing the output from lswt (will work better with all versions of lswt)  - supports minimised and active window identification, gets slow quick. 
@@ -37,4 +37,8 @@ All the lswt menus look like this, [-] signifies minimised and [+] means active/
 app-list-term.sh -  mostly the same as app-list.sh but splits out terminals into their own menu to avoid clutter, if you use a lot of terminals.
 
 There are some other quirks here and there like hiding and showing seperators depending on requirements, but they do involve extra queries which might slow it down.
+
+## So what else is there?
+
+...
 

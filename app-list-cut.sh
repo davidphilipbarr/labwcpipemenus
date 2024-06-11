@@ -5,7 +5,7 @@
 # [-] signifies minimised window [+] shoes the current active window
 # Active,title,app-id,fullscreen,max,min
 # lswt -c AtafmM
-# known issues - there are problems, usually websites that have commas in their title, such as:https://www.theguardian.com/uk . 
+# known issues - there are problems, with some terminal matches.
 
 exclude=("re.sonny.Retro")
 wlist=$(lswt -c AtafmM | sed 's.\\,.※.g')
@@ -42,8 +42,8 @@ then
    echo "<item label="\""$(echo $VIS $appid  | sed 's/org.gnome.//g') - $apptitle"\"">"
    echo "<action name="\""Execute"\""><execute>"
      
-# for no reason i can fathom nautilus specifically needs the no backtick method, 
-# so we hack rather than figure out why?
+# there is some kind of issue with at least console/kgx which works from the command line but not as a pipe menu
+# this actualy just fails and falls back to appid
      
      if [[ "$appid" =~ "$tm" ]]
       then

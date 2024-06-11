@@ -5,7 +5,6 @@
 # [-] signifies minimised window [+] shoes the current active window
 # Active,title,app-id,fullscreen,max,min
 # lswt -c AtafmM
-# known issues - there are problems, with some terminal matches.
 
 exclude=("re.sonny.Retro")
 wlist=$(lswt -c AtafmM | sed 's.\\,.※.g')
@@ -42,12 +41,12 @@ then
    echo "<item label="\""$(echo $VIS $appid  | sed 's/org.gnome.//g') - $apptitle"\"">"
    echo "<action name="\""Execute"\""><execute>"
      
-# there is some kind of issue with at least console/kgx which works from the command line but not as a pipe menu
-# this actualy just fails and falls back to appid
+# are there issues with tilde?
+# we hack rather than figure out why, rough match is better than none??
      
-     if [[ "$appid" =~ "$tm" ]]
+     if [[ "$apptitle" =~ "~" ]]
       then
-         echo "wlrctl window focus app_id:$appid "$STATE" `title:"\""$apptitle"\""` "
+         echo "wlrctl window focus app_id:$appid "$STATE" "
       else
           echo "wlrctl window focus app_id:$appid "$STATE" title:"\""$apptitle"\"" "
 	     

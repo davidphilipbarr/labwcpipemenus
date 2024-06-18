@@ -2,7 +2,7 @@
 # Alternative Client-list menu based on lswt https://sr.ht/~leon_plickat/lswt/ 
 # and wlctrl https://todo.sr.ht/~brocellous/wlrctl/7.
 # it's incredibly hacky but for the most part seems to work. 
-# [-] signifies minimised window [+] shoes the current active window
+# [-] signifies minimised window 👁 signifies the current active window
 # Active,title,app-id,fullscreen,max,min
 # lswt -c AtafmM
 
@@ -20,7 +20,7 @@ appid=$(echo "$LINE" | cut -d"," -f3 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;
 minimized=$(echo "$LINE" | cut -d"," -f5)
 active=$(echo "$LINE" | cut -d"," -f1)
 max=$(echo "$LINE" | cut -d"," -f6)
-# we're actually checking for fullscreen as well maybe it should show?
+# we're actually checking for fullscreen as well maybe it should show it - if it's not too slow?
 if [ "$minimized" = "true" ]
   then
         VIS="[-]"

@@ -7,19 +7,20 @@
 # lswt -c AtafmM
 
 exclude=("re.sonny.Retro")
+# add ※ instead of commas to allow cut to work with delimiter.
 wlist=$(lswt -c AtafmM | sed 's.\\,.※.g')
-tm="org.gnome.Console"
 echo '<openbox_pipe_menu id="window-list">'
 
-# set the Internal Field Separator to newline
 IFS=$'\n' 
 for LINE in $wlist
 do
+# so earlier on we swapped "," for a snowflake thing now we are swapping it back and escaping the xml stuff
 apptitle=$(echo "$LINE" | cut -d"," -f2 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g; s.※.,.g'  )
 appid=$(echo "$LINE" | cut -d"," -f3 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 minimized=$(echo "$LINE" | cut -d"," -f5)
 active=$(echo "$LINE" | cut -d"," -f1)
 max=$(echo "$LINE" | cut -d"," -f6)
+# we're actually checking for fullscreen as well maybe it should show?
 if [ "$minimized" = "true" ]
   then
         VIS="[-]"
@@ -30,7 +31,7 @@ if [ "$minimized" = "true" ]
 	    elif [ "$max" = "true" ] 
   then
 	VIS="🗖"
-# if this isn't here it freaks out, but why?  
+# if this isn't here it freaks out, but why? We're also setting state not active to add a little bit more chance of getting the right window  
   else 
 	VIS=""
    STATE="state:-active"
@@ -41,8 +42,10 @@ then
    echo "<item label="\""$(echo $VIS $appid  | sed 's/org.gnome.//g') - $apptitle"\"">"
    echo "<action name="\""Execute"\""><execute>"
      
-# are there issues with tilde?
-# we hack rather than figure out why, rough match is better than none??
+# tilde expands to $home, so if the window includes a tilde we just totally abandon trying to match the title.
+# it's less than ideal, but in the case of multiple windows like terminals it will let us at least pull them up from iconfified
+# even if we sometimes get the wrong one - a rough match is better than none??
+# TODO: find better solution...
      
      if [[ "$apptitle" =~ "~" ]]
       then

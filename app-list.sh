@@ -12,7 +12,6 @@
 #
 
 exclude=("re.sonny.Retro Skype")
-tm="org.gnome.Console"
 
 appnames()
 {
@@ -31,10 +30,10 @@ echo "<action name="\""Execute"\""><execute>"
 # for no reason i can fathom nautilus specifically needs the no backtick method, 
 # so we hack rather than figure out why?
 
-if [[ "$appid" =~ "$tm" ]]
+  if [[ "$apptitle" =~ "~" ]]
      then
-   # tbh i think this just fails and falls back to appid?      
-echo "wlrctl window focus app_id:$appid $state `title:'$apptitle'`"
+   #  fallback to appid if tilde exists?      
+echo "wlrctl window focus app_id:$appid $state "
      else
   echo "wlrctl window focus app_id:$appid $state title:'$apptitle'"   
 
@@ -76,10 +75,11 @@ min
 # add a load of bumf at the end 
 printf '%b\n' '
 <separator/>
-<item label="Move Workspace Right">
+
 <item label="Move Workspace Left"> 
 <action name="GoToDesktop" to="left" wrap="yes" />
 </item>
+<item label="Move Workspace Right">
 <action name="GoToDesktop" to="right" wrap="yes" />
 </item>
 </openbox_pipe_menu>'

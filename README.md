@@ -34,10 +34,6 @@ app-list-q.sh - this uses lswt and wlrctrl and jq for parsing the output from ls
 
 All the lswt menus look like this, [-] signifies minimised and [+] means active/has focus.
 
-app-list-term.sh -  mostly the same as app-list.sh but splits out terminals into their own menu to avoid clutter, if you use a lot of terminals.
-
-There are some other quirks here and there like hiding and showing seperators depending on requirements, but they do involve extra queries which might slow it down.
-
 ## So what else is there?
 
 ### labwcfav.sh

@@ -1,0 +1,44 @@
+<menu id="right-menu">
+
+<item label="Terminal">
+    <action name="Execute" command="kgx" />
+  </item>
+    
+  <item label="Home Directory">
+    <action name="Execute" command="nautilus" />
+  </item>
+ <item label="Text Editor">
+    <action name="Execute" command="gnome-text-editor" />
+  </item>
+ <item label="Web Browser">
+    <action name="Execute" command="google-chrome --ozone-platform=wayland" />
+  </item>
+   <!--
+ <item label="Discord">
+    <action name="Execute" command="discord" />
+  </item>  
+
+     <item label="Amberol">
+    <action name="Execute" command="amberol" />
+  </item>
+
+   <item label="Plex Media Player">
+    <action name="Execute" command="flatpak run tv.plex.PlexDesktop" />
+  </item>
+
+   <item label="KiCad">
+    <action name="Execute" command="/home/david/.local/bin/kicad-dark.sh " />
+  </item>
+-->
+  <separator/>
+   <item label="Applications">
+    <action name="Execute" command="ulauncher" />
+  </item>
+<separator/>  
+ 
+    <menu id="fav-menu" label="Pinned" execute="/home/david/.local/bin/labwcfav.sh"/>
+    <menu id="panel-menu" label="Panel" execute="/home/david/bin/panel-menu-lite.sh"/>
+    <menu id="app-list" label="Windows" execute="/home/david/.local/bin/app-list-cut.sh"/>
+
+
+</menu>

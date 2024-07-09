@@ -6,21 +6,23 @@
 # Active,title,app-id,fullscreen,max,min
 # lswt -c AtafmM
 
+# lets exclude some windows by appid, space between each.
 exclude=("re.sonny.Retro")
 # add ※ instead of commas to allow cut to work with delimiter.
 wlist=$(lswt -c AtafmM | sed 's.\\,.※.g')
 echo '<openbox_pipe_menu id="window-list">'
-
 IFS=$'\n' 
 for LINE in $wlist
 do
-# so earlier on we swapped "," for a snowflake thing now we are swapping it back and escaping the xml stuff
+# so earlier on we swapped "," for ※ now we are swapping it back and escaping the xml stuff
 apptitle=$(echo "$LINE" | cut -d"," -f2 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g; s.※.,.g'  )
 appid=$(echo "$LINE" | cut -d"," -f3 | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
+# define and check some states
 minimized=$(echo "$LINE" | cut -d"," -f5)
 active=$(echo "$LINE" | cut -d"," -f1)
 max=$(echo "$LINE" | cut -d"," -f6)
-# we're actually checking for fullscreen as well maybe it should show it - if it's not too slow?
+full=$(echo "$LINE" | cut -d"," -f4)
+
 if [ "$minimized" = "true" ]
   then
         VIS="[-]"
@@ -31,7 +33,13 @@ if [ "$minimized" = "true" ]
 	    elif [ "$max" = "true" ] 
   then
 	VIS="🗖"
-# if this isn't here it freaks out, but why? We're also setting state not active to add a little bit more chance of getting the right window  
+# not unuseful on multi-screen setups?
+	    elif [ "$full" = "true" ] 
+  then
+	VIS="🖵"
+	
+# if this isn't here it freaks out, but why? We're also setting state "not active" to add a little bit  
+# more chance of getting the right window  
   else 
 	VIS=""
    STATE="state:-active"
@@ -43,10 +51,9 @@ then
    echo "<action name="\""Execute"\""><execute>"
      
 # tilde expands to $home, so if the window includes a tilde we just totally abandon trying to match the title.
-# it's less than ideal, but in the case of multiple windows like terminals it will let us at least pull them up from iconfified
+# it's less than ideal, but in the case of multiple windows like terminals it will let us at least pull them up from iconified
 # even if we sometimes get the wrong one - a rough match is better than none??
-# TODO: find better solution...
-     
+# TODO: find better solution...  
      if [[ "$apptitle" =~ "~" ]]
       then
          echo "wlrctl window focus app_id:$appid "$STATE" "
@@ -56,9 +63,8 @@ then
    fi
    echo "</execute></action></item>"
    fi
-
 done
-
+# just junk at the end to move around desktops
 echo "<separator />"
 echo "<item label='Move Workspace Left'>" 
 echo '<action name="GoToDesktop" to="left" wrap="yes" />'

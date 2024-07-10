@@ -25,10 +25,6 @@ If there are multiple windows with the same name and id (possibly terminals, may
 [app-list.sh](app-list.sh) - this only uses wlrctrl, which is widely available in most distributions, it also splits the window lists into minimised and viewable rather than in one list mixed up, but only shows if a window is minimised or not. It supports manually excluding apps from the list too. It has the least obscure app 'dependencies' so should work on most systems without having to build anything - IS SLOW
 
 
-
-
-All the lswt menus look like this, [-] signifies minimised and [+] means active/has focus.
-
 ## So what else is there?
 
 ### [labwcfav.sh](labwcfav.sh)

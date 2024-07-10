@@ -49,7 +49,6 @@ elif  [ -f $PATHLFP${pinned[$appid]} ]; then
    item
    else
 # if we can't find the .desktop just give up       
-echo "-----------------------------------"
 echo   "$PATHLFP${pinned[$appid]} "    
 fi
 done
